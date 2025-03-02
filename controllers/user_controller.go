@@ -3,6 +3,7 @@ package controllers
 import (
 	"golang-crud/models"
 	"golang-crud/services"
+	"golang-crud/utils"
 	"net/http"
 	"strconv"
 
@@ -18,12 +19,35 @@ func NewUserController(service services.UserService) *UserController {
 }
 
 func (c *UserController) CreateUser(ctx *gin.Context) {
-	var user models.User
-	ctx.BindJSON(&user)
+	// Parse the multipart form
+	if err := ctx.Request.ParseMultipartForm(10 << 20); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Erreur lors du parsing du formulaire"})
+		return
+	}
+
+	// Get the values from the form
+	name := ctx.Request.FormValue("name")
+	email := ctx.Request.FormValue("email")
+
+	// Upload the file
+	filePath, err := utils.UploadFile(ctx.Request)
+	if err != nil {
+		// Handle upload error
+	}
+
+	// Create the User model
+	user := models.User{
+		Name:      name,
+		Email:     email,
+		ImagePath: filePath,
+	}
+
+	// Create the user using the service
 	if err := c.service.CreateUser(&user); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
 	ctx.JSON(http.StatusCreated, user)
 }
 
