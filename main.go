@@ -26,12 +26,16 @@ func main() {
 	bookingRepo := repositories.NewBookingRepository()
 	bookingService := services.NewBookingService(bookingRepo)
 
+	availabilityRepo := repositories.NewAvailabilityRepository()
+	availabilityService := services.NewAvailabilityService(availabilityRepo)
+
 	// Configuration des routes
 	router := gin.Default()
 	routes.UserRoutes(router, userService)
 	routes.RoomModelRoutes(router, roomModelService)
 	routes.RoomRoutes(router, roomService)
 	routes.BookingRoutes(router, bookingService)
+	routes.AvailabilityRoutes(router, availabilityService)
 
 	// Démarrage du serveur
 	router.Run(":8080")

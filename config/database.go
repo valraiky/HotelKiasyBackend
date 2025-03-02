@@ -20,6 +20,7 @@ func ConnectDatabase() {
 	db.AutoMigrate(&models.RoomModel{})
 	db.AutoMigrate(&models.Room{})
 	db.AutoMigrate(&models.Booking{})
+	db.AutoMigrate(&models.Availability{})
 
 	fmt.Println("Base de données connectée !")
 	DB = db
