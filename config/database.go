@@ -17,6 +17,8 @@ func ConnectDatabase() {
 	}
 
 	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.RoomModel{})
+	db.AutoMigrate(&models.Room{})
 
 	fmt.Println("Base de données connectée !")
 	DB = db

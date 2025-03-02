@@ -13,16 +13,22 @@ func main() {
 	// Connexion à la base de données
 	config.ConnectDatabase()
 
-	// Initialisation du routeur Gin
-	router := gin.Default()
-
-	// Définition des dépendances (Injection de dépendances)
+	// Initialisation des composants
 	userRepo := repositories.NewUserRepository()
 	userService := services.NewUserService(userRepo)
 
-	// Définition des routes
-	routes.UserRoutes(router, userService)
+	roomModelRepo := repositories.NewRoomModelRepository()
+	roomModelService := services.NewRoomModelService(roomModelRepo)
 
-	// Lancement du serveur sur le port 8080
+	roomRepo := repositories.NewRoomRepository()
+	roomService := services.NewRoomService(roomRepo)
+
+	// Configuration des routes
+	router := gin.Default()
+	routes.UserRoutes(router, userService)
+	routes.RoomModelRoutes(router, roomModelService)
+	routes.RoomRoutes(router, roomService)
+
+	// Démarrage du serveur
 	router.Run(":8080")
 }
