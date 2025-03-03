@@ -11,6 +11,7 @@ type UserRepository interface {
 	FindByID(id uint) (*models.User, error)
 	Delete(id uint) error
 	Update(user *models.User) error
+	FindByEmail(email string) (*models.User, error)
 }
 
 type userRepository struct{}
@@ -41,4 +42,10 @@ func (r *userRepository) Delete(id uint) error {
 
 func (r *userRepository) Update(user *models.User) error { // Implémentation de la méthode Update
 	return config.DB.Save(user).Error
+}
+
+func (r *userRepository) FindByEmail(email string) (*models.User, error) {
+	var user models.User
+	err := config.DB.Where("email = ?", email).First(&user).Error
+	return &user, err
 }

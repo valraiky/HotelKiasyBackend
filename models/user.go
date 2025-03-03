@@ -7,4 +7,6 @@ type User struct {
 	Name      string `json:"name"`
 	Email     string `json:"email" gorm:"unique"`
 	ImagePath string `json:"image_path"`
+	Password  string `json:"-"` // Ajout de json:"-"
+	Role      string `json:"role" gorm:"default:user"`
 }

@@ -4,7 +4,6 @@ Ce projet est un backend API RESTful développé en Go pour gérer les réservat
 
 ## Fonctionnalités
 
-* Gestion des hôtels (création, lecture, mise à jour, suppression)
 * Gestion des chambres (création, lecture, mise à jour, suppression)
 * Gestion des réservations (création, lecture, annulation)
 * Authentification des utilisateurs (clients et administrateurs)
@@ -13,7 +12,7 @@ Ce projet est un backend API RESTful développé en Go pour gérer les réservat
 
 ## Prérequis
 
-* Go (version go1.24.0)
+* Go (version gogo1.24.0 )
 * mysql
 * Git
 
@@ -28,24 +27,26 @@ Ce projet est un backend API RESTful développé en Go pour gérer les réservat
 2.  Accédez au répertoire du projet :
 
     ```bash
-    cd backend-reservation-hotel
+    mkdir golang-crud && cd golang-crud
     ```
 
-3.  Installez les dépendances :
+3.  Installer les packages nécessaires :
 
     ```bash
-    go mod tidy
+    go get github.com/gin-gonic/gin
+    go get gorm.io/driver/mysql
+    go get gorm.io/gorm
     ```
 
 4.  Configurez la base de données :
 
-    * Créez une base de données PostgreSQL.
+    * Créez une base de données Mysql.
     * Modifiez le fichier `config.yaml` avec vos informations de connexion à la base de données.
 
 5.  Exécutez les migrations de la base de données :
 
     ```bash
-    go run cmd/migrate/*.go up
+    go run cmd/migrate/*.go up ou faite avec automigrate
     ```
 
 ## Utilisation
